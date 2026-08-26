@@ -1,0 +1,1050 @@
+/* ===================================================== */
+/* -------------------- Base Styles -------------------- */
+/* ===================================================== */
+html {
+    font-size: 16px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #0a0a0a;
+    color: #fff;
+}
+
+body.large-text {
+    font-size: 1.25rem;
+}
+
+/* ===================================================== */
+/* ---------------- High Contrast Mode ----------------- */
+/* ===================================================== */
+
+body.high-contrast {
+    background: black !important;
+    color: white !important;
+}
+
+/* ---------------- Containers, panels, modals ---------------- */
+body.high-contrast #console,
+body.high-contrast .console-container,
+body.high-contrast .modules-panel,
+body.high-contrast .tutorial-box,
+body.high-contrast .modal-content,
+body.high-contrast #rulebook-modal,
+body.high-contrast .mission-briefing-panel,
+body.high-contrast #achievement-container .achievement-popup {
+    background-color: black !important;
+    color: white !important;
+    border: 0.125rem solid white !important;
+    box-shadow: none !important;
+}
+
+/* ---------------- Tutorial Text ---------------- */
+body.high-contrast #tutorial-box,
+body.high-contrast #tutorial-box *:not(button) {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+/* ---------------- Reward / Victory / Achievement ---------------- */
+body.high-contrast .modal-content.reward-modal,
+body.high-contrast .modal-content.reward-modal *:not(button),
+body.high-contrast #achievement-container,
+body.high-contrast #achievement-container *:not(button) {
+    color: white !important;
+    text-shadow: none !important;
+    border-color: white !important; /* fixes horizontal lines */
+}
+
+/* Horizontal divider lines inside reward modal */
+body.high-contrast .modal-content.reward-modal hr {
+    border-color: white !important;
+}
+
+/* ---------------- Messages printed after stage advance ---------------- */
+body.high-contrast .message,
+body.high-contrast .message *:not(button) {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+/* ---------------- Buttons ---------------- */
+body.high-contrast button,
+body.high-contrast .ui-toolbar button,
+body.high-contrast .menu-btn,
+body.high-contrast .fix-btn,
+body.high-contrast #runBtn,
+body.high-contrast .next-mission-btn,
+body.high-contrast .victory-main-menu-btn,
+body.high-contrast .tutorial-box button {
+    background-color: white !important;
+    color: black !important;
+    border-color: white !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast button:hover,
+body.high-contrast .ui-toolbar button:hover,
+body.high-contrast .menu-btn:hover,
+body.high-contrast .fix-btn:hover,
+body.high-contrast #runBtn:hover,
+body.high-contrast .next-mission-btn:hover,
+body.high-contrast .victory-main-menu-btn:hover,
+body.high-contrast .tutorial-box button:hover {
+    background-color: black !important;
+    color: white !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast .command,
+body.high-contrast .result,
+body.high-contrast .data,
+body.high-contrast .error,
+body.high-contrast .message,
+body.high-contrast .success,
+body.high-contrast .alert,
+body.high-contrast .log-entry,
+body.high-contrast .info {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+/* ---------------- Progress Bars ---------------- */
+body.high-contrast .progress-bar-outer {
+    background: #111 !important;
+    border: 0.125rem solid white !important;
+}
+
+body.high-contrast .progress-bar-inner {
+    background: white !important;
+}
+
+/* ---------------- Command Input ---------------- */
+body.high-contrast #commandInput {
+    background-color: black !important;
+    color: white !important;
+    border-color: white !important;
+    text-shadow: none !important;
+    caret-color: white !important;
+}
+
+body.high-contrast #commandInput:focus {
+    border-color: white !important;
+    box-shadow: 0 0 0.5rem white !important;
+}
+
+/* ---------------- Scrollbars ---------------- */
+body.high-contrast #console,
+body.high-contrast .modules-panel,
+body.high-contrast .tutorial-box {
+    scrollbar-color: white black !important;
+}
+
+body.high-contrast #console::-webkit-scrollbar-thumb,
+body.high-contrast .modules-panel::-webkit-scrollbar-thumb,
+body.high-contrast .tutorial-box::-webkit-scrollbar-thumb {
+    background-color: white !important;
+    border-color: black !important;
+}
+
+/* ---------------- Titles / Headers ---------------- */
+body.high-contrast .mission-title,
+body.high-contrast .game-title,
+body.high-contrast .mission-briefing-panel h2,
+body.high-contrast #mission-briefing-text,
+body.high-contrast .achievement-title {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+/* ---------------- Loading Screen ---------------- */
+body.high-contrast #loading-screen {
+    background: black !important;
+}
+
+body.high-contrast .loading-panel {
+    background: black !important;
+    border: 0.125rem solid white !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .loading-text {
+    color: white !important;
+}
+
+body.high-contrast .loading-spinner {
+    border: 0.25rem solid rgba(255,255,255,0.2) !important;
+    border-top-color: white !important;
+}
+
+/* ---------------- Query Display / Tables ---------------- */
+body.high-contrast .table-container {
+    background-color: black !important;
+    border-color: white !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .data-table th,
+body.high-contrast .data-table td {
+    color: white !important;
+    border-color: white !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast .data-table th {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+body.high-contrast .data-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+body.high-contrast .data-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+body.high-contrast .table-container tr:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    cursor: pointer;
+}
+
+/* ===================================================== */
+/* ------------------ Loading Screen ------------------- */
+/* ===================================================== */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, #001a1a, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+}
+
+.loading-panel {
+    background: rgba(0, 20, 20, 0.9);
+    border: 0.0625rem solid #00ffaa;
+    border-radius: 0.75rem;
+    padding: 1.875rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 0 1.875rem #00ffaa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9375rem;
+}
+
+.loading-text {
+    font-family: monospace;
+    color: #00ffcc;
+    font-size: 1.125rem;
+}
+
+.loading-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.25rem solid rgba(0, 255, 200, 0.2);
+    border-top-color: #00ffaa;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    height: 100vh;
+    gap: 0.75rem;
+}
+
+.console-container {
+    width: 80%;
+    max-width: 56.25rem;
+    background-color: #111;
+    padding: 1.25rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 1.25rem #00ff99;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+}
+
+.mission-title {
+    text-align: center;
+    color: #00ff99;
+    margin-bottom: 0.3125rem;
+    font-size: 1.5rem;
+}
+
+#mission-info {
+    text-align: center;
+    margin-bottom: 0.625rem;
+    color: #bbb;
+}
+
+/* ===================================================== */
+/* -------------------- UI Toolbar --------------------- */
+/* ===================================================== */
+.ui-toolbar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    justify-content: flex-end;
+    align-items: center;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.ui-toolbar button {
+    padding: 0.625rem 0.75rem;
+    margin-top: 1.25rem;
+    background: #001f1f;
+    border: 0.0625rem solid #00ffaa;
+    color: #00ffaa;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-family: monospace;
+    transition: 0.2s;
+}
+
+.ui-toolbar button:last-child {
+    margin-right: 1.25rem;
+}
+
+.ui-toolbar button:hover {
+    background: #00ffaa;
+    color: #000;
+}
+
+.menu-btn {
+    position: static;
+    top: 0.9375rem;
+    right: 1.25rem;
+    background: #001f1f;
+    border: 0.0625rem solid #00ffaa;
+    color: #00ffaa;
+    padding: 0.375rem 0.625rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-family: monospace;
+    transition: 0.2s;
+}
+
+.menu-btn:hover {
+    background: #00ffaa;
+    color: #000;
+}
+
+/* ===================================================== */
+/* ---------------------- Console ---------------------- */
+/* ===================================================== */
+#console {
+    background-color: #000;
+    flex: 1;
+    overflow-y: auto;
+    padding: 0.625rem;
+    border-radius: 0.3125rem;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    border: 0.0625rem solid #fff;
+    font-family: monospace;
+}
+
+#console p {
+    font-family: monospace;
+    text-shadow: 0 0 0.125rem #00ff99;
+    white-space: pre-line;
+}
+
+/* ===================================================== */
+/* ---------------- Console Text Types ----------------- */
+/* ===================================================== */
+.command { color: #00ff99; text-shadow: 0 0 0.25rem #00ff99; }
+.result { color: #00ff99; }
+.data { color: #00bfff; }
+.error { color: #ff1d1d; }
+.message { color: #00ffaa; }
+
+/* ===================================================== */
+/* ----------------- Rulebook Modal  ------------------- */
+/* ===================================================== */
+#rulebook-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.rulebook-window {
+    width: 45rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #050505;
+    border: 0.125rem solid #00ffaa;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 0 1.25rem #00ffaa;
+}
+
+.rulebook-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.9375rem;
+}
+
+
+
+/* ===================================================== */
+/* --------------- Achievement Modal  ------------------ */
+/* ===================================================== */
+#achievements-modal .modal-content {
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background-color: #0b0b0b;
+    color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 0 10px #222;
+}
+
+#achievements-modal h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.achievement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.achievement {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    background-color: #1a1a1a;
+}
+
+.achievement.unlocked {
+    border-left: 0.25rem solid #f1c40f;
+}
+
+.achievement.locked {
+    opacity: 0.6;
+}
+
+.achievement-name {
+    font-weight: bold;
+}
+
+.achievement-desc {
+    font-size: 0.85rem;
+    color: #ccc;
+}
+
+#achievements-modal button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #0b0b0b;
+    color: white;
+    border: 0.125rem solid #fff;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+#achievements-modal button:hover {
+    background-color: #111;
+}
+
+/* ===================================================== */
+/* ----------------- Briefing Modal  ------------------- */
+/* ===================================================== */
+.mission-briefing {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+}
+
+.mission-briefing-panel {
+    width: 37.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #050505;
+    border: 0.125rem solid #00ffaa;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 0 1.25rem #00ffaa;
+}
+
+#mission-briefing-text {
+    font-family: monospace;
+    font-size: 1rem;
+    color: #00ffaa;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.mission-briefing-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.625rem;
+}
+
+.mission-briefing-buttons button {
+    background: #001f1f;
+    border: 0.0625rem solid #00ffaa;
+    color: #00ffaa;
+    border-radius: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-family: monospace;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.mission-briefing-buttons button:hover {
+    background: #00ffaa;
+    color: #000;
+}
+
+.mission-briefing-panel h2 {
+    margin: 0 0 0.9375rem 0;
+    font-size: 1.375rem;
+    text-align: center;
+    color: #00ff99;
+    text-shadow: 0 0 0.375rem #00ffaa;
+    font-family: monospace;
+}
+
+/* ===================================================== */
+/* ------------------- Modules Panel ------------------- */
+/* ===================================================== */
+.modules-panel {
+    width: 80%;
+    max-width: 56.25rem;
+    background-color: #000;
+    margin: 1.25rem auto;
+    padding: 0.625rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0 0.625rem #00bfff;
+    font-family: monospace;
+    color: #00bfff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.modules-panel h3 {
+    margin-top: 0;
+    color: #00ff99;
+    text-align: center;
+}
+
+.module-entry {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.0625rem solid #333;
+    padding: 0.3125rem 0;
+}
+
+.module-entry.online { color: #00ff99; text-shadow: 0 0 0.375rem #00ff99; }
+.module-entry.offline { color: #ff1d1d; text-shadow: 0 0 0.375rem #ff1d1d; }
+.module-entry.restricted { color: #ffaa00; text-shadow: 0 0 0.375rem #ffaa00; }
+
+
+
+
+#contrast-toggle {
+    width: 2rem;               
+    height: 2rem;
+    cursor: pointer;
+    border: 0.125rem solid white; 
+    border-radius: 0.25rem;
+    background-color: black;  
+    vertical-align: middle;
+
+    
+    accent-color: white;         
+}
+
+
+#contrast-toggle:hover,
+#contrast-toggle:focus {
+    outline: 0.25rem solid white;
+    outline-offset: 0.125rem;
+}
+
+/* ===================================================== */
+/* ----------------- Inputs & Buttons ------------------ */
+/* ===================================================== */
+.input-row { 
+    display: flex; 
+    gap: 0.25rem;
+    align-items: flex-end;
+}
+
+.input-row button {
+    flex: 0 0 auto;          
+    height: 2rem;         
+    line-height: 2rem;   
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;         
+}
+
+#commandInput {
+    flex: 1;
+    width: 80%;
+    min-height: 1rem;
+    max-height: 10rem;
+    padding: 0.5rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    border: 0.0625rem solid #444;
+    border-radius: 0.3125rem;
+    background-color: #111;
+    color: #00ff99;
+    caret-color: #00ff99;
+    outline: none;
+    resize: none;
+    overflow-y: hidden;
+}
+
+#commandInput:focus {
+    border-color: #00ff99;
+    box-shadow: 0 0 0.5rem #00ff99;
+}
+
+#runBtn {
+    padding: 0.5rem 1rem;
+    font-family: monospace;
+    font-size: 0.875rem;
+    margin-left: 0.3125rem;
+    border: none;
+    border-radius: 0.3125rem;
+    cursor: pointer;
+    background-color: #00ff99;
+    color: #000;
+    transition: 0.2s;
+}
+
+#runBtn:hover { background-color: #00cc7a; }
+
+/* ===================================================== */
+/* -------------------- Fix Options -------------------- */
+/* ===================================================== */
+
+#fix-options { margin-top: 0.625rem; text-align: center; }
+
+.fix-btn {
+    background-color: #222;
+    color: #00ff99;
+    border: 0.0625rem solid #00ff99;
+    padding: 0.5rem 0.75rem; 
+    margin: 0.25rem; 
+    border-radius: 0.3125rem; 
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.fix-btn:hover { background-color: #00ff99; color: #000; }
+
+/* ===================================================== */
+/* ------------------- Alerts & Logs ------------------- */
+/* ===================================================== */
+
+.alert { color: #ff1d1d; }
+.success { color: #00ff99; }
+.info { color: #00bfff; }
+.log-entry { color: #ffc400; cursor: pointer; text-decoration: underline; }
+
+/* ===================================================== */
+/* ------------------ Sensor Entries ------------------- */
+/* ===================================================== */
+
+.sensor-entry {
+    padding: 0.5rem 0.625rem; 
+    border-radius: 0.3125rem;
+    margin-bottom: 0.3125rem; 
+    transition: background-color 0.2s, transform 0.1s;
+    cursor: pointer;
+    user-select: none;
+}
+
+.sensor-entry.info {
+    background-color: rgba(0, 191, 255, 0.05);
+    color: #00bfff;
+}
+
+.sensor-entry.alert {
+    background-color: rgba(255, 29, 29, 0.05);
+    color: #ff1d1d;
+}
+
+.sensor-entry:hover {
+    background-color: rgba(0, 191, 255, 0.15);
+    transform: translateX(0.1875rem); 
+}
+
+.sensor-entry.alert:hover {
+    background-color: rgba(255, 29, 29, 0.15);
+}
+
+.sensor-entry:active {
+    transform: translateX(0) scale(0.98);
+    opacity: 0.9;
+}
+
+/* ===================================================== */
+/* -------------------- Query Table -------------------- */
+/* ===================================================== */
+
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 12.5rem; 
+    margin: 0.3125rem 0; 
+    padding: 0.5rem; 
+    border: 0.0625rem solid #00ff99;
+    border-radius: 0.3125rem; 
+    background: rgba(0, 20, 20, 0.8);
+    box-shadow: 0 0 0.9375rem #00ff99; 
+    backdrop-filter: blur(4px);
+}
+
+.data-table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: monospace;
+    color: #00ff99;
+}
+
+.data-table th,
+.data-table td {
+    border: 0.0625rem solid #00ff99;
+    padding: 0.25rem 0.375rem; 
+    text-align: left;
+}
+
+.data-table th { background-color: rgba(0, 255, 153, 0.1); }
+
+.data-table tr:nth-child(even) { background-color: rgba(0, 255, 153, 0.05); }
+.data-table tr:hover { background-color: rgba(0, 255, 153, 0.2); }
+.table-container tr:hover { background-color: #ffeeba; cursor: pointer; }
+
+/* ===================================================== */
+/* ------------------ Tutorial System ------------------ */
+/* ===================================================== */
+
+.tutorial-box {
+    position: fixed;
+    right: 1.25rem; 
+    top: 5rem;
+    width: 18.75rem; 
+    background-color: rgba(0, 20, 20, 0.95);
+    border: 0.0625rem solid #00ffaa; 
+    border-radius: 0.625rem; 
+    padding: 0.9375rem;
+    z-index: 1000;
+    box-shadow: 0 0 0.9375rem #00ffaa;
+    font-family: monospace;
+    color: #00ffaa;
+}
+
+.tutorial-box p {
+    font-size: 1rem; 
+    color: #00ffcc;
+    margin-bottom: 0.9375rem; 
+}
+
+.tutorial-box button {
+    margin-top: 0.625rem; 
+    background-color: #00ffaa;
+    color: #000;
+    border: none;
+    border-radius: 0.3125rem;
+    padding: 0.3125rem 0.625rem; 
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tutorial-box button:hover { background-color: #00e68a; }
+
+.tutorial-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.75rem; 
+}
+
+#tutorial-back { visibility: hidden; opacity: 0; }
+#tutorial-back.visible { visibility: visible; opacity: 1; }
+
+.hidden { display: none; }
+
+/* ===================================================== */
+/* ----------------- Achievement Popups ---------------- */
+/* ===================================================== */
+
+#achievement-container {
+    position: fixed;
+    top: 5rem; 
+    right: 1.25rem; 
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem; 
+    z-index: 900;
+    pointer-events: none;
+}
+
+.achievement-popup {
+    min-width: 15rem;
+    background: #050505;
+    border: 0.0625rem solid #00ffaa;
+    border-radius: 0.5rem; 
+    padding: 0.625rem 0.875rem;
+    font-family: monospace;
+    color: #00ffaa;
+    box-shadow: 0 0 0.625rem #00ffaa;
+    transform: translateX(120%);
+    opacity: 0;
+    animation: achievement-slide-in 1s forwards,
+               achievement-fade-out 1s forwards 3s;
+}
+
+.achievement-title { font-weight: bold; color: #00ff99; }
+
+@keyframes achievement-slide-in {
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes achievement-fade-out {
+    to { transform: translateX(120%); opacity: 0; }
+}
+
+/* ===================================================== */
+/* ------------ Highlight / Overlay System ------------- */
+/* ===================================================== */
+
+#screen-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 50;
+}
+
+body.highlight-active #screen-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.7);
+    z-index: 10000;
+}
+
+.modal.hidden { display: none; }
+
+.modal-content {
+    background: #111;
+    color: #00ffaa;
+    border: 0.125rem solid #00ffaa;
+    border-radius: 0.625rem; 
+    padding: 1.25rem 1.875rem; 
+    min-width: 18.75rem;
+    max-width: 31.25rem;
+    box-shadow: 0 0 1.25rem #00ffaa;
+    font-family: monospace;
+}
+
+.modal-content label {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.75rem 0;
+    font-size: 1rem;
+}
+
+.modal-content input[type="range"] { flex: 1; margin-left: 0.625rem; }
+
+.modal.fade-in { opacity: 0; animation: fadeInModal 0.4s forwards; }
+
+.fade-in { opacity: 0; animation: fadeInModal 0.4s forwards; }
+
+@keyframes fadeInModal { to { opacity: 1; } }
+
+/* ===================================================== */
+/* ------------------ Reward Screen  ------------------- */
+/* ===================================================== */
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+
+.modal-content.reward-modal {
+    width: 37.5rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: #050505;
+    border: 0.125rem solid #00ffaa;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 0 1.25rem #00ffaa;
+    font-family: monospace;
+    color: #00ffaa;
+    text-align: left;
+}
+
+.modal-content.reward-modal h2 {
+    margin: 0 0 0.9375rem 0; 
+    font-size: 1.375rem; 
+    text-align: center;
+    color: #00ff99;
+    text-shadow: 0 0 0.375rem #00ffaa;
+}
+
+.modal-content.reward-modal h3 {
+    border-bottom: 0.0625rem solid #00ffaa;
+    padding-bottom: 0.25rem; 
+    margin-top: 1.25rem; 
+    margin-bottom: 0.625rem; 
+    font-size: 1.125rem; 
+    color: #00ff99;
+    text-shadow: 0 0 0.25rem #00ffaa; 
+}
+
+.modal-content.reward-modal.victory { text-align: center; }
+
+.reward-modal ul { padding-left: 1.5rem; margin-bottom: 0.625rem; }
+.reward-modal li { margin-bottom: 0.25rem; }
+
+.next-mission-btn, .victory-main-menu-btn {
+    margin-top: 0.625rem; 
+    padding: 0.375rem 0.75rem; 
+    font-size: 0.875rem;
+    background-color: #00ffaa;
+    color: #000;
+    border: none;
+    border-radius: 0.375rem; 
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: monospace;
+}
+
+.next-mission-btn:hover, .victory-main-menu-btn:hover { background-color: #00cc7a; }
+
+/* ===================================================== */
+/* ------------------- Progress Bar -------------------- */
+/* ===================================================== */
+
+.progress-bars {
+    display: flex;
+    justify-content: center;
+    gap: 1.875rem; 
+    margin: 1.25rem 0; 
+}
+
+.progress-bars > div { flex: 1; max-width: 12.5rem; }
+
+.progress-bar-outer {
+    width: 100%; height: 1.75rem; 
+    background: #444;
+    border-radius: 0.875rem; 
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background: #4caf50;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-bar-label {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.375rem; 
+    color: #fff;
+    text-align: center;
+}
+
+/* ===================================================== */
+/* -------------------- Scrollbars --------------------- */
+/* ===================================================== */
+
+#console,
+.modules-panel,
+.tutorial-box {
+    scrollbar-color: #00ff99 #111;
+}
+
+#console::-webkit-scrollbar-track,
+.modules-panel::-webkit-scrollbar-track,
+.tutorial-box::-webkit-scrollbar-track { background: #111; }
+
+#console::-webkit-scrollbar-thumb,
+.modules-panel::-webkit-scrollbar-thumb,
+.tutorial-box::-webkit-scrollbar-thumb {
+    background-color: #00ff99;
+    border-radius: 0.1875rem; 
+    border: 0.0625rem solid #111; 
+}
+
+#console::-webkit-scrollbar-thumb:hover,
+.modules-panel::-webkit-scrollbar-thumb:hover,
+.tutorial-box::-webkit-scrollbar-thumb:hover { background-color: #33ffbb; }
+
+/* ===================================================== */
+/* --------------------- Utilities --------------------- */
+/* ===================================================== */
+
+.hidden { display: none; }
+
+/* ===================================================== */
+/* -------------------- Responsive --------------------- */
+/* ===================================================== */
+
+@media (max-width: 31.25rem) { 
+    .tutorial-box { width: 90%; top: 3.75rem;  }
+    .tutorial-box p { font-size: 0.875rem;  }
+}
+
+
+button, 
+.ui-toolbar button, 
+.menu-btn, 
+.fix-btn, 
+#runBtn, 
+.next-mission-btn, 
+.victory-main-menu-btn, 
+.tutorial-box button, 
+.menu-panel button, 
+#rulebook-close {
+    font-size: 1rem;
+}

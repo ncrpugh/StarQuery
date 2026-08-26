@@ -1,0 +1,318 @@
+:root {
+    --rulebook-bg: black;
+    --rulebook-accent: #00ffff;
+    --rulebook-btn-bg: white;
+    --rulebook-border-radius: 0.25rem;
+   
+}
+
+/* ---------------- High Contrast ---------------- */
+body.high-contrast #rulebook-modal,
+body.high-contrast #rulebook-book,
+body.high-contrast .book-page,
+body.high-contrast .book-page.right-page.centered,
+body.high-contrast .sections {
+    background: var(--rulebook-bg) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast .book-page.left-page,
+body.high-contrast .book-page.right-page {
+    border: 0.0625rem solid white !important;
+}
+
+body.high-contrast .book-page h1,
+body.high-contrast .book-page h2,
+body.high-contrast .book-page h3,
+body.high-contrast .book-page p,
+body.high-contrast .rulebook-section-header,
+body.high-contrast #section-list li {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+body.high-contrast #section-list li {
+    background: rgba(255,255,255,0.05) !important;
+}
+
+body.high-contrast #section-list li:hover {
+    background: rgba(255,255,255,0.15) !important;
+    transform: none !important;
+}
+
+/* Scrollbars */
+body.high-contrast .sections::-webkit-scrollbar,
+body.high-contrast .book-page.right-page::-webkit-scrollbar,
+body.high-contrast .book-page.right-page pre::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+body.high-contrast .sections::-webkit-scrollbar-track,
+body.high-contrast .book-page.right-page::-webkit-scrollbar-track,
+body.high-contrast .book-page.right-page pre::-webkit-scrollbar-track {
+    background: var(--rulebook-bg) !important;
+}
+
+body.high-contrast .sections::-webkit-scrollbar-thumb,
+body.high-contrast .book-page.right-page::-webkit-scrollbar-thumb,
+body.high-contrast .book-page.right-page pre::-webkit-scrollbar-thumb {
+    background-color: var(--rulebook-btn-bg) !important;
+    border-radius: 0.3rem;
+}
+
+
+.sections::-webkit-scrollbar,
+.book-page.right-page::-webkit-scrollbar,
+.book-page.right-page pre::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+}
+
+.sections::-webkit-scrollbar-track,
+.book-page.right-page::-webkit-scrollbar-track,
+.book-page.right-page pre::-webkit-scrollbar-track {
+    background: #0d0d0d;
+}
+
+.sections::-webkit-scrollbar-thumb,
+.book-page.right-page::-webkit-scrollbar-thumb,
+.book-page.right-page pre::-webkit-scrollbar-thumb {
+    background-color: #00dddd;   
+    border-radius: 0.3rem;
+}
+
+/* Buttons */
+body.high-contrast #back-to-contents,
+body.high-contrast .rulebook-close {
+    background-color: var(--rulebook-btn-bg) !important;
+    color: black !important;
+    border: 0.0625rem solid var(--rulebook-btn-bg) !important;
+    box-shadow: none !important;
+}
+
+body.high-contrast #back-to-contents:hover,
+body.high-contrast .rulebook-close:hover {
+    background-color: var(--rulebook-bg) !important;
+    color: var(--rulebook-btn-bg) !important;
+}
+
+/* ---------- Rulebook Modal ---------- */
+#rulebook-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* ---------- Book Container ---------- */
+#rulebook-book {
+    display: flex;
+    width: min(100rem, 92vw);
+    height: 72vh;
+    background: #0a0a0a;
+    position: relative;
+    box-shadow: 0 1rem 2.5rem rgba(0,255,255,0.18), inset 0 0 3.75rem rgba(0,255,255,0.06);
+    border-radius: 0.5rem;
+    perspective: 87.5rem;
+    overflow: hidden;
+}
+
+/* Pages share width evenly */
+.book-page.left-page,
+.book-page.right-page {
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: 50%;
+    box-sizing: border-box;
+}
+
+/* ---------- Common page base styles ---------- */
+.book-page {
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    font-family: "OCR A", "Courier New", monospace;
+    color: var(--rulebook-accent);
+    background: linear-gradient(180deg, #111111 0%, #1a1a1a 100%);
+    box-shadow: inset 0 0 1rem rgba(0,255,255,0.22), 0 0 1.5rem rgba(0,255,255,0.10);
+}
+
+/* ---------- Left Page (cover / intro) ---------- */
+.book-page.left-page {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 0.375rem 0 0 0.375rem;
+    box-shadow: inset 0 0 1rem rgba(0,255,255,0.22), 0.375rem 0 1.5rem rgba(0,255,255,0.12), 0 0 1.5rem rgba(0,255,255,0.10);
+    position: relative;
+    z-index: 2;
+}
+
+/* Fake spine shadow */
+.book-page.left-page::after {
+    content: "";
+    position: absolute;
+    inset: 0 -1rem 0 0;
+    width: 2rem;
+    background: linear-gradient(to right, rgba(0,0,0,0.55), transparent);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Right Page */
+.book-page.right-page {
+    border-radius: 0 0.375rem 0.375rem 0;
+    box-shadow: inset 0 0 1rem rgba(0,255,255,0.22), -0.375rem 0 1.5rem rgba(0,255,255,0.12), 0 0 1.5rem rgba(0,255,255,0.10);
+    overflow-y: auto;
+}
+
+/* Centered right page layout */
+.book-page.right-page.centered {
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+}
+
+/* ---------- Contents / Sections ---------- */
+.contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.sections {
+    flex: 1 1 auto;
+    width: 100%;
+    overflow-y: auto;
+    padding: 3rem 0 1.5rem;
+    box-sizing: border-box;
+}
+
+.sections h3:first-child {
+    margin-top: 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Back to contents button */
+#back-to-contents {
+    position: absolute;
+    top: 1rem;
+    left: 1.5rem;
+    background: #008888;
+    color: #000;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: var(--rulebook-border-radius);
+    font-weight: bold;
+    box-shadow: 0 0 0.5rem rgba(0,255,255,0.35);
+    transition: all 0.18s ease;
+    z-index: 20;
+}
+
+#back-to-contents:hover {
+    background: var(--rulebook-accent);
+    color: #000;
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.75rem rgba(0,255,255,0.5);
+}
+
+/* ---------- Left Page Text ---------- */
+.left-page h1 {
+    font-size: 2.1rem;
+    margin-bottom: 0.75rem;
+    color: var(--rulebook-accent);
+    text-shadow: 0 0 0.5rem var(--rulebook-accent);
+}
+.left-page h2 {
+    font-size: 1.45rem;
+    margin: 0.375rem 0;
+    color: #00aaaa;
+}
+.left-page p {
+    margin: 0.5rem 0;
+    line-height: 1.55;
+}
+
+/* Section styling */
+.rulebook-section-header {
+    background: #111;
+    color: var(--rulebook-accent);
+    text-shadow: 0 0 0.375rem var(--rulebook-accent);
+    padding: 0.5rem 0.625rem;
+    margin: 0.75rem 0 0.5rem;
+    border-radius: var(--rulebook-border-radius);
+}
+
+/* Contents list */
+#section-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    width: 100%;
+    max-height: 82%;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#section-list::-webkit-scrollbar {
+    display: none;
+}
+
+#section-list li {
+    cursor: pointer;
+    padding: 0.75rem 1.25rem;
+    margin: 0.625rem 0;
+    background: rgba(0,255,255,0.06);
+    border-radius: 0.3rem;
+    transition: all 0.18s ease;
+    text-align: center;
+}
+
+#section-list li:hover {
+    background: rgba(0,255,255,0.18);
+    transform: translateX(0.25rem);
+}
+
+
+.book-page.right-page pre {
+    overflow-x: auto;
+    white-space: pre;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    border-radius: var(--rulebook-border-radius);
+    background: #111;
+    color: #00ff00;
+    font-family: "Courier New", monospace;
+}
+
+/* Close button */
+.rulebook-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    background: #0aa;
+    border: none;
+    border-radius: var(--rulebook-border-radius);
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 0.375rem rgba(0,255,255,0.5);
+    transition: all 0.15s ease;
+}
+
+.rulebook-close:hover {
+    background: #0ff;
+    transform: translateY(-0.0625rem);
+}

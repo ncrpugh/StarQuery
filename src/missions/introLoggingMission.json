@@ -1,0 +1,49 @@
+{
+  "name": "Tutorial: LOGGING",
+  "description": "Record repairs into the Logs module.",
+  "stages": [
+    { "name": "Logging" }
+  ],
+  "modules": [
+    {
+      "name": "Airlock",
+      "fields": ["pressure", "temperature", "status", "repaired", "ship_section", "severity", "severity_modifier"],
+      "rows": [
+        { "pressure": 30, "temperature": 60, "status": "online", "repaired": 0, "ship_section": "Front", "severity": 2, "severity_modifier": 3 },
+        { "pressure": 20, "temperature": 55, "status": "online", "repaired": 1, "ship_section": "Front", "severity": 3, "severity_modifier": 2 }
+      ]
+    },
+    {
+      "name": "Reactor",
+      "fields": ["voltage", "current", "temperature", "status", "repaired", "ship_section", "severity", "severity_modifier"],
+      "rows": [
+        { "voltage": 210, "current": 5, "temperature": 60, "status": "online", "repaired": 0, "ship_section": "Mid", "severity": 1, "severity_modifier": 2 },
+        { "voltage": 190, "current": 15, "temperature": 70, "status": "online", "repaired": 1, "ship_section": "Mid", "severity": 3, "severity_modifier": 2 }
+      ]
+    },
+    {
+      "name": "Engine",
+      "fields": ["fuel_level", "temperature", "status", "repaired", "ship_section", "severity", "severity_modifier"],
+      "rows": [
+        { "fuel_level": 50, "temperature": 70, "status": "online", "repaired": 0, "ship_section": "Rear", "severity": 2, "severity_modifier": 3 },
+        { "fuel_level": 5, "temperature": 80, "status": "online", "repaired": 1, "ship_section": "Rear", "severity": 1, "severity_modifier": 2 }
+      ]
+    },
+    {
+      "name": "Spectral_Scanner",
+      "fields": ["signal_strength", "status", "repaired", "ship_section", "severity", "severity_modifier"],
+      "rows": [
+        { "signal_strength": 100, "status": "online", "repaired": 0, "ship_section": "Sensors", "severity": 2, "severity_modifier": 2 },
+        { "signal_strength": 20, "status": "online", "repaired": 1, "ship_section": "Sensors", "severity": 2, "severity_modifier": 3 }
+      ]
+    }
+  ],
+  "tutorial": [
+    { "message": "Welcome to the Logging Phase.", "trigger": "manual" },
+    { "message": "Each row now has a 'repaired' field along with 'severity' and 'severity_modifier'.", "trigger": "manual" },
+    { "message": "Use SQL to calculate total repair workload (Impact) with severity multipliers. For example: SELECT ship_section, SUM(severity * severity_modifier) AS repairs FROM Engine WHERE repaired = 1 GROUP BY ship_section;", "trigger": "manual" },
+    { "message": "Then update the logs table with the total repair workload (Impact) (UPDATE logs SET repairs = 6 WHERE ship_section = 'Front')", "trigger": "manual" },
+    { "message": "Do this for each ship_section.", "trigger": "stageAdvance" },
+    { "message": "Mission complete! You've successfully logged all repairs to the ship.", "trigger": "manual" }
+]
+}

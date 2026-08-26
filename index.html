@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StarQuery</title>
+
+    <!-- UI styling -->
+    <link rel="stylesheet" href="./src/style.css" />
+    <link rel="stylesheet" href="./src/ui/rulebook/rulebookPanel.css">
+    <link rel="stylesheet" href="./src/ui/mainMenu/mainMenu.css">
+</head>
+<body>
+     <!-- Loading screen -->
+<div id="loading-screen" class="loading-screen hidden">
+    <div class="loading-panel">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">INITIALISING SYSTEMS...</div>
+    </div>
+</div>
+
+<!-- Main Menu -->
+<div id="main-menu" class="main-menu hidden">
+    <h1 class="game-title">StarQuery</h1>
+
+    <div class="menu-panel">
+        <button id="tutorial-btn">Start Tutorial</button>
+        <button id="start-btn">Start Campaign</button>
+        <button id="start-rule1-btn">Start Campaign (Critical Repair)</button>
+        <button id="start-rule2-btn">Start Campaign (Cascading Faults)</button>
+        <button id="stats-btn">Stats</button>
+        <button id="achievements-btn" class="menu-btn">Achievements</button>
+        <button id="settings-btn">Settings</button>
+    </div>
+</div>
+
+<!-- Settings -->
+<div id="settings-modal" class="modal hidden">
+    <div class="modal-content">
+
+        <h2>Accessibility Settings</h2>
+
+        <label>
+            Font Size
+            <input id="font-size-input" type="range" min="14" max="24" value="16">
+        </label>
+
+        <label>
+            High Contrast Mode
+            <input id="contrast-toggle" type="checkbox">
+        </label>
+
+        <button id="save-settings-btn">Save</button>
+        <button id="close-settings-btn">Close</button>
+
+    </div>
+</div>
+
+<!-- Stats -->
+<div id="stats-modal" class="modal hidden">
+    <div class="modal-content">
+
+        <h2>Player Stats</h2>
+
+        <p>Missions Completed: <span id="stats-missions"></span></p>
+        <p>Queries Executed: <span id="stats-queries"></span></p>
+        <p>Repairs Made: <span id="stats-repairs"></span></p>
+
+        <button id="close-stats-btn">Close</button>
+
+    </div>
+</div>
+
+<!-- Game UI -->
+<div id="game-ui" class="screen hidden">
+    <div class="game-container">
+        <div class="ui-toolbar">
+            <button id="rulebook-btn" class="menu-btn">Rulebook</button>
+            <button id="hint-btn" class="menu-btn">Hint</button>
+            <button id="briefing-btn" class="menu-btn">Briefing</button>
+            <button id="achievements-toolbar-btn" class="menu-btn">Achievements</button>
+            <button id="settings-toolbar-btn" class="menu-btn">Settings</button>
+            <button id="main-menu-btn" class="menu-btn">Main Menu</button>
+        </div>
+
+        
+        <div class="console-container">
+            <h1 class="mission-title">Mission Console</h1>
+            <div id="mission-info"></div>
+
+            <div class="progress-bars" id="progress-bars-container">
+                <!-- Progress Bars are added here dynamically -->
+            </div>
+
+            <div id="console">
+                <div id="system-modules" class="modules-panel"></div>
+                <div id="query-output" class="query-output"></div>
+            </div>
+            <div class="input-row">
+                <textarea id="commandInput" placeholder="Enter command..." autocomplete="off"></textarea>
+                <button id="runBtn">Run</button>
+                <button id="identifyBtn" disabled>Identify Faults</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Briefing -->
+    <div id="mission-briefing" class="mission-briefing hidden">
+        <div class="mission-briefing-panel">
+            <h2>MISSION BRIEFING</h2>
+            <p id="mission-briefing-text"></p>
+            <div class="mission-briefing-buttons">
+                <button id="mission-begin-btn">Ok</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rulebook -->
+    <div id="rulebook-modal" class="hidden">
+        <div id="rulebook-book">
+            <button id="rulebook-close" class="rulebook-close">✕</button>
+            <!-- Left page -->
+            <div class="book-page left-page">
+                <h1>STARQUERY HANDBOOK</h1>
+                <h2>FIELD EDITION</h2>
+                <p>Welcome aboard, Systems Officer.</p>
+                <p>Your duty is to maintain operational stability of the ship.</p>
+                <p>Click a section header to navigate to that page.</p>
+            </div>
+
+            <!-- Right page -->
+            <div class="book-page right-page centered">
+                <div class="contents" id="rulebook-contents">
+                    <ul id="section-list"></ul>
+                </div>
+                <div class="sections hidden" id="section-pages"></div>
+                <div id="back-to-contents">📖 Contents</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Tutorial Box -->
+    <div id="tutorial-box" class="tutorial-box hidden">
+        <p id="tutorial-text"></p>
+        <div class="tutorial-buttons">
+            <button id="tutorial-back">Back</button>
+            <button id="tutorial-next">Continue</button>
+        </div>
+    </div>
+
+    <!-- Achievements -->
+    <div id="achievement-container"></div>
+
+    
+    <!-- SQL.js -->
+    <script src="./dist/sql-wasm.js"></script>
+
+    <!-- Script -->
+    <script type="module" src="./src/script.js"></script>
+    <script>
+        const input = document.getElementById('commandInput');
+
+        input.addEventListener('input', () => {
+            input.style.height = 'auto';         
+            input.style.height = input.scrollHeight + 'px'; 
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "name": "Tutorial: UPDATE",
+  "description": "Repair the faulty rows using UPDATE statements.",
+  "ignoredFields": ["issue_detected", "repaired"],
+  "stages": [
+    { "name": "Repair" }
+  ],
+  "modules": [
+    {
+      "name": "Airlock",
+      "fields": ["pressure", "temperature", "status", "issue_detected", "repaired"],
+      "rows": [
+        { "pressure": 30, "temperature": 60, "status": "online", "issue_detected": 0, "repaired": 0 },
+        { "pressure": 20, "temperature": 55, "status": "online", "issue_detected": 1, "repaired": 0 }
+      ]
+    },
+    {
+      "name": "Reactor",
+      "fields": ["voltage", "current", "temperature", "status", "issue_detected", "repaired"],
+      "rows": [
+        { "voltage": 210, "current": 5, "temperature": 60, "status": "online", "issue_detected": 0, "repaired": 0 },
+        { "voltage": 190, "current": 15, "temperature": 70, "status": "online", "issue_detected": 0, "repaired": 0 }
+      ]
+    },
+    {
+      "name": "Engine",
+      "fields": ["fuel_level", "temperature", "status", "issue_detected", "repaired"],
+      "rows": [
+        { "fuel_level": 50, "temperature": 70, "status": "online", "issue_detected": 0, "repaired": 0 },
+        { "fuel_level": 5, "temperature": 80, "status": "online", "issue_detected": 1, "repaired": 0 }
+      ]
+    },
+    {
+      "name": "Spectral_Scanner",
+      "fields": ["signal_strength", "status", "issue_detected", "repaired"],
+      "rows": [
+        { "signal_strength": 100, "status": "online", "issue_detected": 0, "repaired": 0 },
+        { "signal_strength": 20, "status": "online", "issue_detected": 1, "repaired": 0 }
+      ]
+    }
+  ],
+  "tutorial": [
+    { "message": "Welcome to the Repair Protocol.", "trigger": "manual" },
+    { "message": "Unlike the previous mission, you already know how to identify faults.", "trigger": "manual" },
+    { "message": "Now your objective is to *repair* system values using UPDATE statements.", "trigger": "manual" },
+    { "message": "Repair any systems identified as faulty - issue_detected = 1.", "trigger": "manual" },
+    { "message": "For example: UPDATE Airlock SET pressure = 40 WHERE id = 2;", "trigger": "update" },
+    { "message": "Use SELECT queries to inspect systems and confirm your fixes.", "trigger": "select" },
+    { "message": "Repair a faulty system using UPDATE to advance.", "trigger": "update" },
+    { "message": "Make sure to only update faulty systems to keep repair efficiency high.", "trigger": "manual" },
+    { "message": "Once all faulty rows meet safe operating limits, the mission will complete.", "trigger": "stageAdvance" },
+    { "message": "Well done, Technician. You have successfully repaired the ship.", "trigger": "manual" }
+  ]
+
+}

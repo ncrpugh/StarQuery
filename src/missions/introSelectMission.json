@@ -1,0 +1,51 @@
+{
+  "name": "Tutorial: SELECT",
+  "description": "Inspect the modules and identify faulty readings.",
+  "stages": [
+    { "name": "Identify" }
+  ],
+  "modules": [
+    {
+      "name": "Airlock",
+      "fields": ["pressure", "temperature", "status", "issue_detected"],
+      "rows": [
+        { "pressure": 30, "temperature": 60, "status": "online", "issue_detected": 0 },
+        { "pressure": 20, "temperature": 55, "status": "online", "issue_detected": 0 }
+      ]
+    },
+    {
+      "name": "Reactor",
+      "fields": ["voltage", "current", "temperature", "status", "issue_detected"],
+      "rows": [
+        { "voltage": 210, "current": 5, "temperature": 60, "status": "online", "issue_detected": 0 },
+        { "voltage": 190, "current": 15, "temperature": 70, "status": "online", "issue_detected": 0 }
+      ]
+    },
+    {
+      "name": "Engine",
+      "fields": ["fuel_level", "temperature", "status", "issue_detected"],
+      "rows": [
+        { "fuel_level": 50, "temperature": 70, "status": "online", "issue_detected": 0 },
+        { "fuel_level": 5, "temperature": 80, "status": "online", "issue_detected": 0 }
+      ]
+    },
+    {
+      "name": "Spectral_Scanner",
+      "fields": ["signal_strength", "status", "issue_detected"],
+      "rows": [
+        { "signal_strength": 100, "status": "online", "issue_detected": 0 },
+        { "signal_strength": 20, "status": "online", "issue_detected": 0 }
+      ]
+    }
+  ],
+    "tutorial": [
+        { "message": "Welcome! This is your first mission. You will learn to identify faulty systems using queries.", "trigger": "manual" },
+        { "message": "Start by inspecting the available systems in the console on the below.", "trigger": "manual" },
+        { "message": "Hint: Use queries like 'SELECT * FROM Airlock;' to view sensor data.", "trigger": "select" },
+        { "message": "Check all systems visually for unusual readings: fuel, temperature, pressure, voltage.", "trigger": "manual" },
+        { "message": "Identify the row with the abnormal readings by using select statements and click 'Identify Faults' to mark it.", "trigger": "identify" },
+        { "message": "To get the highest efficiency make sure to focus in on the fault before clicking 'Identify Faults', e.g., SELECT * FROM Engine WHERE fuel_level < 10", "trigger": "manual" },
+        { "message": "Once you've identified all issues, the mission will complete.", "trigger": "stageAdvance" },
+        { "message": "Mission complete! You successfully identified the faulty systems.", "trigger": "manual" }
+    ]
+}
