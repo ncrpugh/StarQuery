@@ -192,8 +192,7 @@ The tests use Jest and cover areas including query execution, repair logic and r
 
 The dist/ directory must contain the following files for the database functionality to work:
 
-dist/
-├── sql-wasm.js
-└── sql-wasm.wasm
+dist/sql-wasm.js
+dist/sql-wasm.wasm
 
 These files are required by SQL.js to initialise the in-browser SQLite database.
