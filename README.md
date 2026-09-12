@@ -4,6 +4,8 @@ StarQuery is an educational browser-based game that teaches SQL through spaceshi
 
 [Play StarQuery](https://devweb2025.cis.strath.ac.uk/~yfb21159/CS408Project/)
 
+<br>
+
 ## Overview
 
 StarQuery is an educational simulation game designed to help players develop practical SQL skills through an interactive problem-solving environment.
@@ -17,6 +19,8 @@ Repair — use UPDATE queries to repair the identified faults.
 Logging — record the impact of the repairs in the ship's logs.
 
 Missions can be procedurally generated and can include additional rules that introduce dependencies and consequences between repairs.
+
+<br>
 
 ## How It Works
 
@@ -42,6 +46,8 @@ After repairs are complete, players use SQL to record their impact in the ship's
 
 The impact of repairs is calculated from the severity of the repaired faults and used to update the relevant ship sections.
 
+<br>
+
 ## Technical Highlights
 
 ### Rulebook-driven architecture
@@ -59,6 +65,8 @@ Repairs can have consequences beyond simply changing a value. Dependency relatio
 ### Client-side SQL execution
 SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queries to execute immediately without requiring a backend database or server-side query processing.
 
+<br>
+
 ## Architecture
 
 StarQuery is organised as a set of modular components responsible for different parts of the game. The main systems communicate through defined responsibilities, while the Rulebook provides shared definitions and rules used throughout the application. 
@@ -74,7 +82,7 @@ The query system is separated from the rest of the game logic. Player SQL is pro
 
 This separation of responsibilities keeps the user interface, mission system, game rules and database operations as distinct components while allowing them to communicate where required.
 
-
+<br>
 
 Reconstructing the Project
 
