@@ -22,13 +22,13 @@ Missions can be procedurally generated and can include additional rules that int
 
 Each mission is split into three stages, with the player using SQL to investigate and maintain the ship.
 
-1. Identify
+### 1. Identify
 
 Players inspect the ship's modules and use SELECT queries to identify faulty fields and rows.
 
 The Rulebook provides information about valid operating ranges, allowing players to reason about which values represent faults.
 
-2. Repair
+### 2. Repair
 
 Once faults have been identified, players use UPDATE queries to repair the affected systems.
 
@@ -36,7 +36,7 @@ Repairs are evaluated based on the resulting database state rather than requirin
 
 Additional rules such as Critical Repair Order and Cascading Faults can introduce dependencies between repairs, creating consequences when faults are repaired incorrectly.
 
-3. Logging
+### 3. Logging
 
 After repairs are complete, players use SQL to record their impact in the ship's logs.
 
