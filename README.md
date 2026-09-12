@@ -63,6 +63,8 @@ SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queri
 
 StarQuery is organised as a set of modular components responsible for different parts of the game. The main systems communicate through defined responsibilities, while the Rulebook provides shared definitions and rules used throughout the application.
 
+![StarQuery Architecture](docs/images/architecture.png)
+
 Reconstructing the Project
 
 To run the project from a fresh environment:
