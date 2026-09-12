@@ -163,25 +163,32 @@ The project requires:
 python -m http.server 8000
 ```
 Open the application in a browser at:
+
+```bash
 http://localhost:8000/
+```
 
 The project should now load and be playable in the browser.
 
 Note: The game should be run through a local HTTP server rather than opening index.html directly, as the application requires access to the SQL.js WebAssembly files.
 
-Running Tests
+### Running Tests
 
 Install the Node.js dependencies:
 
+```bash
 npm install
+```
 
 Then run the automated test suite:
 
+```bash
 npm test
+```
 
 The tests use Jest and cover areas including query execution, repair logic and repair efficiency tracking.
 
-SQL.js Files
+### SQL.js Files
 
 The dist/ directory must contain the following files for the database functionality to work:
 
