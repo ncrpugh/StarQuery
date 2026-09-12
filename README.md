@@ -61,9 +61,20 @@ SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queri
 
 ## Architecture
 
-StarQuery is organised as a set of modular components responsible for different parts of the game. The main systems communicate through defined responsibilities, while the Rulebook provides shared definitions and rules used throughout the application.
+StarQuery is organised as a set of modular components responsible for different parts of the game. The main systems communicate through defined responsibilities, while the Rulebook provides shared definitions and rules used throughout the application. 
+
+The diagram below illustrates the relationships between the major components of StarQuery and how responsibility is divided across the application.
 
 ![StarQuery Architecture](docs/images/architecture.png)
+
+
+The Game Manager acts as the main application controller, coordinating initialisation and the creation of the major game components. The mission and campaign systems are separated into dedicated components for generating, building and loading missions, while the Rulebook provides shared definitions for the ship's modules, valid operating ranges and gameplay rules.
+
+The query system is separated from the rest of the game logic. Player SQL is processed through the Query Engine and Query Executor, which execute queries against the in-browser sql.js database. Database state is then compared before and after player actions, allowing the Repair Reconciler to determine which faults were repaired and whether any additional gameplay rules have been triggered.
+
+This separation of responsibilities keeps the user interface, mission system, game rules and database operations as distinct components while allowing them to communicate where required.
+
+
 
 Reconstructing the Project
 
