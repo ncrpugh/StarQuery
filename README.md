@@ -44,19 +44,19 @@ The impact of repairs is calculated from the severity of the repaired faults and
 
 ## Technical Highlights
 
-Rulebook-driven architecture
+### Rulebook-driven architecture
 A central Rulebook acts as the source of truth for the game's modules, valid operating ranges, dependencies and gameplay rules. The same definitions are consumed by mission generation, fault detection, repair validation, cascading faults, repair-order rules and contextual hints, keeping the behaviour of the different systems consistent.
 
-State-based SQL evaluation
+### State-based SQL evaluation
 Rather than requiring players to produce one predetermined SQL query, StarQuery evaluates the effect of their commands. The system captures the database state before a mutation, executes the player's SQL, then compares the resulting state against the previous state. The Repair Reconciler uses these changes together with the Rulebook to determine which faults were repaired, which fields were incorrectly modified and what gameplay consequences should occur.
 
-Procedural mission generation
+### Procedural mission generation
 Missions are constructed dynamically from the player's progression, available ship modules and difficulty. Valid rows and fault values are generated from the Rulebook, while fault density and ambiguity are adjusted as difficulty increases, allowing the game to produce varied missions without relying entirely on predefined scenarios.
 
-Rule-based fault escalation
+### Rule-based fault escalation
 Repairs can have consequences beyond simply changing a value. Dependency relationships and special rules such as Critical Repair Order and Cascading Faults can cause additional faults to appear when the player violates the system's constraints.
 
-Client-side SQL execution
+### Client-side SQL execution
 SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queries to execute immediately without requiring a backend database or server-side query processing.
 
 ## Architecture
