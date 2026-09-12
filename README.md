@@ -1,13 +1,67 @@
-StarQuery
+# StarQuery
+
+StarQuery is an educational browser-based game that teaches SQL through spaceship maintenance and problem solving. Players use SQL queries to identify faults, repair ship systems, and record the impact of their repairs.
+
+[Play StarQuery](https://devweb2025.cis.strath.ac.uk/~yfb21159/CS408Project/)
 
 ## Overview
-StarQuery is a browser-based simulation game where players act as crew officers maintaining a spaceship by interacting with ship systems using SQL commands. The game challenges players to identify faults, repair them, and log their impact, testing both logical thinking and strategy.
 
-The project includes frontend code (HTML/CSS/JS) and automated tests.
+StarQuery is an educational simulation game designed to help players develop practical SQL skills through an interactive problem-solving environment.
 
-Prerequisites
-1. Python 3 - Required to serve the frontend locally
-2. Node.js and npm - Required to run tests
+Players take the role of a crew officer responsible for maintaining a spaceship. Each mission presents the player with faults in the ship's systems, which they must investigate and resolve using SQL queries. Rather than requiring a specific query, the game evaluates the changes made to the underlying database state, allowing different valid approaches to solving a problem.
+
+Missions are divided into three stages:
+
+Identify — use SELECT queries to investigate the ship and identify faulty data.
+Repair — use UPDATE queries to repair the identified faults.
+Logging — record the impact of the repairs in the ship's logs.
+
+Missions can be procedurally generated and can include additional rules that introduce dependencies and consequences between repairs.
+
+## How It Works
+
+Each mission is split into three stages, with the player using SQL to investigate and maintain the ship.
+
+1. Identify
+
+Players inspect the ship's modules and use SELECT queries to identify faulty fields and rows.
+
+The Rulebook provides information about valid operating ranges, allowing players to reason about which values represent faults.
+
+2. Repair
+
+Once faults have been identified, players use UPDATE queries to repair the affected systems.
+
+Repairs are evaluated based on the resulting database state rather than requiring one specific SQL query. This allows players to solve problems using different valid approaches.
+
+Additional rules such as Critical Repair Order and Cascading Faults can introduce dependencies between repairs, creating consequences when faults are repaired incorrectly.
+
+3. Logging
+
+After repairs are complete, players use SQL to record their impact in the ship's logs.
+
+The impact of repairs is calculated from the severity of the repaired faults and used to update the relevant ship sections.
+
+## Technical Highlights
+
+Rulebook-driven architecture
+A central Rulebook acts as the source of truth for the game's modules, valid operating ranges, dependencies and gameplay rules. The same definitions are consumed by mission generation, fault detection, repair validation, cascading faults, repair-order rules and contextual hints, keeping the behaviour of the different systems consistent.
+
+State-based SQL evaluation
+Rather than requiring players to produce one predetermined SQL query, StarQuery evaluates the effect of their commands. The system captures the database state before a mutation, executes the player's SQL, then compares the resulting state against the previous state. The Repair Reconciler uses these changes together with the Rulebook to determine which faults were repaired, which fields were incorrectly modified and what gameplay consequences should occur.
+
+Procedural mission generation
+Missions are constructed dynamically from the player's progression, available ship modules and difficulty. Valid rows and fault values are generated from the Rulebook, while fault density and ambiguity are adjusted as difficulty increases, allowing the game to produce varied missions without relying entirely on predefined scenarios.
+
+Rule-based fault escalation
+Repairs can have consequences beyond simply changing a value. Dependency relationships and special rules such as Critical Repair Order and Cascading Faults can cause additional faults to appear when the player violates the system's constraints.
+
+Client-side SQL execution
+SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queries to execute immediately without requiring a backend database or server-side query processing.
+
+## Architecture
+
+StarQuery is organised as a set of modular components responsible for different parts of the game. The main systems communicate through defined responsibilities, while the Rulebook provides shared definitions and rules used throughout the application.
 
 Reconstructing the Project
 
