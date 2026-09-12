@@ -84,229 +84,109 @@ This separation of responsibilities keeps the user interface, mission system, ga
 
 <br>
 
-Reconstructing the Project
+## Technical Deep Dive
 
-To run the project from a fresh environment:
+### Rulebook System
 
-1. Ensure Python 3 and Node.js are installed: Node is not needed if you are just using the application, it is only needed when attempting to run the tests
+The Rulebook acts as a central source of truth for the rules governing the game. It defines the ship's modules and fields, valid operating ranges, field dependencies and the conditions used to determine whether values are faulty.
 
-2. Install dependencies for testing:
-   npm install
-3. Ensure the dist/ folder contains:
-   - sql-wasm.js
-   - sql-wasm.wasm
-4. Run the game:
-   python -m http.server 8000
+Rather than duplicating these rules across individual components, other systems use the Rulebook when they need to make decisions about the game state. Mission generation uses it when creating valid and faulty data, while query handling and repair validation use it to determine whether player actions have produced valid repairs. The same definitions are also used by systems such as fault spawning and hints.
 
+This approach keeps the behaviour of different parts of the application consistent. Changes to a rule can be made in one central location rather than requiring the same logic to be updated across multiple components.
 
-Running the game
-The game is hosted on devweb, follow the link to open: https://devweb2025.cis.strath.ac.uk/~yfb21159/CS408Project/ 
+### State-Based Repair Evaluation
 
-Further instructions details how to run the code locally
+A key part of StarQuery is that players are not required to use one specific SQL query to repair a fault. Instead, the game evaluates the changes made to the database state.
 
-1. Open a terminal and navigate to the project root (where index.html is located)
-2. Start a simple local server using Python: 
-    python -m http.server 8000
+When a player executes a query that can modify the database, the Query Engine first captures the current state of the relevant tables. The Query Executor then executes the player's SQL against the in-browser database. After execution, the resulting state is compared with the captured state to determine what the player actually changed.
 
-3. Open your browser and go to:
-    http://localhost:8000/
+The Repair Reconciler processes these changes alongside the rules defined by the Rulebook. It identifies transitions from faulty to valid values as repairs, while also detecting invalid changes, modifications to non-faulty fields and changes that trigger additional gameplay rules.
 
-4. The game should load and be playable in your browser
+This approach separates SQL execution from game-state evaluation. The database is responsible for applying the player's query, while the surrounding game systems interpret the resulting state and determine whether the player's actions constitute valid repairs.
 
+This also allows players to solve a problem using different valid SQL approaches, as the game evaluates the resulting state rather than comparing the player's query against a predetermined answer.
 
-Running the Tests
-1. Open a terminal in the project root
-2. Install required Node packages (only needed for running tests):
-    npm install 
+### Procedural Mission Generation
 
-3. Run the automated tests: 
-    npm test
+StarQuery can generate missions dynamically rather than relying entirely on a collection of predefined scenarios. The Mission Generator coordinates the creation of the components required to construct a mission, including the Rulebook, Row Populator and Mission Builder.
 
+The Row Populator uses the rules defined by the Rulebook to generate valid module data and introduce appropriate faults. The Mission Builder then assembles these generated components into a complete mission, with the difficulty configuration controlling factors such as fault density, the maximum number of faults and ambiguity in the generated data.
 
-## How the Game Works
-In StarQuery, players act as a crew officer maintaining a spaceship by interacting with ship systems using SQL commands. 
+This allows missions to vary while remaining consistent with the rules of the game. It also means that increasing difficulty can change the complexity of generated missions without requiring each variation to be manually designed and stored.
 
-We recommend starting with the tutorial: Click Start Tutorial to begin
-Follow the tutorial text to complete each stage.
+### Fault Dependencies and Escalation
 
-Start Campaign button starts a series of 10 increasingly difficult procedurally generated missions
+StarQuery supports gameplay rules that create dependencies between faults and repairs, making the order and consequences of player actions important.
 
-Start Campaign (<rule>) does the same but with the rule active
+One example is Critical Repair Order, where certain faults must be repaired before others. If a player repairs a lower-priority fault while a more critical fault remains unresolved, the game can respond by introducing an additional fault.
 
-Other buttons should be self-explanatory
+Cascading Faults provide another form of dependency, allowing changes to one part of the ship to cause faults elsewhere when the relevant conditions are met. The Fault Spawner and Repair Reconciler work with the Rulebook to determine when these consequences should occur.
 
-To apply settings save must be clicked
+These systems allow the database state to drive changes in the game rather than treating each fault as an isolated problem. As a result, players must consider both the immediate effect of a repair and its potential consequences for the rest of the ship.
 
-Gameplay is split into three stages for each mission:
+### Scoring and Progression
 
-1. Identify Stage 
-- Inspect modules and their fields issues using SELECT queries.
-- Use the Rulebook -> Fault Ranges page to see what values are considered faulty. 
-- Click the Identify Faults button to confirm your query.
+Player performance is tracked throughout a mission and contributes to the game's progression systems. Repair efficiency is affected by actions such as modifying non-faulty data, repairing incorrectly and triggering additional faults, allowing the game to reward accurate and efficient problem solving rather than simply completing a mission.
 
-## Efficiency penalties
-- +1 for each row returned that is not faulty or already identified
-- +1 for each extra field in the WHERE clause compared to newly identified faults 
+Mission progress is tracked across the Identify, Repair and Logging stages, with progression only occurring when the relevant conditions have been satisfied. The resulting performance data is also used by the wider game systems to track player statistics, achievements and campaign progression.
 
-## Example 
+This connects the underlying database state and repair evaluation systems to the player's overall experience, allowing technical actions performed through SQL to directly influence gameplay outcomes.
 
-SELECT * FROM Airlock 
-WHERE pressure < 50 OR pressure > 50 OR temperature < 50 OR temperature > 50;
+<br>
 
-- Returns 5 rows, only 1 is faulty -> 4 penalties for extra rows
-- WHERE has 4 fields vs 1 new fault -> 3 penalties for excess WHERE clauses
-- Total penalty: (4 + 3) * 5 = 35 -> efficiency reduced to 65
+## Technologies
 
-- Note: Clicking Identify Faults again without changing the query reruns the previous query and this time applies 5 penalties for extra rows and 4 for excess WHERE clauses since the faulty row is already identified.
+- **JavaScript** — Core application and game logic.
+- **HTML** — Structure of the browser-based interface.
+- **CSS** — Interface styling and layout.
+- **SQL** — Used by players to investigate and modify the ship's database.
+- **SQL.js** — In-browser SQLite database powered by WebAssembly, allowing SQL queries to be executed directly in the browser.
+- **Git / GitHub** — Source control and project repository. 
 
-This stage continues until all faults in the database are identified
+<br>
 
-2. Repair Stage 
-- Repair detected faults using UPDATE commands.
-- Refer to the Rulebook -> Fault Ranges page to find safe values. 
+## Running the Project
 
-## Efficiency penalties
-- +1 for each field updated that was not faulty
-- +1 for each field updated that is still faulty after update
-- Additional faults can spawn if Critical Repair Order or Cascading Faults rules are violated (+10 penalty per spawned fault)
+### Prerequisites
 
-## Example
+The project requires:
 
-UPDATE Airlock SET pressure = 400, temperature = 400;
+- **Python 3** — used to run a local HTTP server for the browser application.
+- **Node.js and npm** — required only for installing and running the automated tests.
 
-- Updates 2 fields in 4 rows -> 8 penalties if values as 400 is faulty value
-- Efficiency reduced by 8 * 5 = 40
+### Running Locally
 
-Spawning an additional fault happens when you play with the additional rules (Critical Repair Order & Cascading Faults) see the Rulebook's Rules page for more info. If these rules are active and you do not follow them a new fault will be spawned for each row correctly repaired when violating the correct repair order. 
+1. Clone the repository and navigate to the project root, where `index.html` is located.
+2. Start a local HTTP server:
 
-This stage continues until all faults are repaired.
-
-
-3. Logging stage
-- Record the impact of all repairs into the Logs table.
-- Impact is calculated as: severity of fault * severity_modifier
-- Sum the impact of all repaired rows in each ship section.
-
-## Example
-
-SELECT
-    ship_section,
-    SUM(severity * severity_modifier) AS repairs
-FROM Airlock
-WHERE repaired = 1
-GROUP BY ship_section;
-
-UPDATE Logs SET repairs = <repairs> 
-WHERE ship_section = 'front'
-
-This stage continues until all Logs reflect the repairs made.
-
-## Tip
-If you get stuck at any stage:
-- Use the Tutorial
-- Consult the Rulebook
-- Click the Hint button for guidance
-
-
-## Maintenance Guide
-
-Project Structure
-The project is organised into modular components:
-
-index.html – Entry point for the application
-src/script.js – Initialises the game
-core/ – Core game logic (Managers / controllers, campaign, missions, player systems)
-ui/ – UI components (Main Menu, Modals, Rulebook, Tutorial, etc.)
-api/sql.js – Handles SQL.js database initialisation and queries
-missions/ – Mission data and mission-related logic
-dist/ – Contains SQL.js (sql-wasm.js, sql-wasm.wasm) required for database functionality
-
-## Key Components
-
-GameManager
-
-Central controller for the application
-Handles game lifecycle (start, mission transitions), UI coordination, and campaign progression
-Most high-level changes should go through this class
-
-MissionManager
-
-Controls current mission state and stage progression (Identify -> Repair -> Logging)
-Interacts with the query engine and rulebook
-Responsible for updating and rendering mission state
-
-QueryEngine
-
-Executes SQL commands using SQL.js
-Handles SELECT (data inspection) and UPDATE (repairs)
-Integrates with repair systems such as RepairReconciler and RepairEfficiencyTracker
-
-UI System
-
-Each UI element is implemented as its own class (e.g. MainMenu, VictoryModal)
-UI updates are triggered via GameManager, MissionManager or Display
-Visibility is controlled using the "hidden" CSS class
-
-Database (SQL.js)
-
-Uses SQL.js (WebAssembly) for an in-browser database
-Requires the following files in the dist/ folder:
-sql-wasm.js
-sql-wasm.wasm
-
-These files must be included or the game will not function correctly
-
-## Adding New Features
-
-Adding a New Mission
-
-Create a new mission JSON file in the missions/ folder
-Follow the existing mission structure (modules, fields, fault ranges)
-Load the mission using the existing loadMission system
-
-Adding a New Rule
-
-Extend the rulebook data structure
-Add logic in MissionManager or QueryEngine depending on behaviour
-Update the Rulebook UI if needed
-
-Adding UI Elements
-
-Create a new UI class similar to existing components
-Attach it to GameManager
-Control visibility using the "hidden" class
-
-Running and Testing Changes
-
-To run the game locally:
+```bash
 python -m http.server 8000
+```
+Open the application in a browser at:
+http://localhost:8000/
 
-To run tests:
+The project should now load and be playable in the browser.
+
+Note: The game should be run through a local HTTP server rather than opening index.html directly, as the application requires access to the SQL.js WebAssembly files.
+
+Running Tests
+
+Install the Node.js dependencies:
+
 npm install
+
+Then run the automated test suite:
+
 npm test
 
-Tests use Jest and cover query execution, repair logic, and efficiency tracking
+The tests use Jest and cover areas including query execution, repair logic and repair efficiency tracking.
 
-## Common Issues
+SQL.js Files
 
-Game not loading
+The dist/ directory must contain the following files for the database functionality to work:
 
-Ensure the Python server is running (do not open index.html directly)
+dist/
+├── sql-wasm.js
+└── sql-wasm.wasm
 
-Database errors
-
-Ensure sql-wasm.js and sql-wasm.wasm are present in the dist/ folder
-
-Tests not running
-
-Run npm install to install dependencies
-
-UI not updating correctly
-
-Check usage of the "hidden" class and any z-index conflicts
-
-## Notes for Developers
-
-Code is written using modular ES6 JavaScript
-Avoid modifying multiple systems at once, as this can introduce bugs
-Prefer extending existing managers rather than duplicating logic
+These files are required by SQL.js to initialise the in-browser SQLite database.
