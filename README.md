@@ -13,6 +13,7 @@ StarQuery is an educational browser-based game that teaches SQL through spaceshi
 - [How It Works](#how-it-works)
 - [Technical Highlights](#technical-highlights)
 - [Architecture](#architecture)
+- [Key Components](#key-components)
 - [Technical Deep Dive](#technical-deep-dive)
 - [Technologies](#technologies)
 - [Running the Project](#running-the-project)
