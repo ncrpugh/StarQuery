@@ -111,6 +111,54 @@ The query system is separated from the rest of the game logic. Player SQL is pro
 
 This separation of responsibilities keeps the user interface, mission system, game rules and database operations as distinct components while allowing them to communicate where required.
 
+For readers interested in exploring the implementation, the [Key Components](#key-components) section provides direct links to the main source files, grouped by technical area.
+
+<br>
+
+## Key Components
+
+The repository contains a number of systems that demonstrate the main technical aspects of StarQuery. The links below provide direct entry points into the most significant parts of the implementation, grouped by technical area.
+
+### Application & Mission Control
+
+| Component | Description |
+|---|---|
+| [`GameManager`](src/core/gameManager.js) | Main application controller responsible for initialising and coordinating the major game systems, UI, campaigns and player data. |
+| [`MissionManager`](src/core/missions/manager/missionManager.js) | Manages the active mission, stage progression and coordination between querying, fault handling, repair evaluation and gameplay systems. |
+
+### Rules & Game Logic
+
+| Component | Description |
+|---|---|
+| [`Rulebook System`](src/core/rules/) | Central rules system containing the `Rulebook`, module definitions, valid operating ranges, commands and dependencies used throughout the game. |
+| [`HintsManager`](src/core/missions/manager/hintsManager.js) | Generates contextual hints from the live mission state, adapting suggestions to the current stage, repair priority, dependencies and critical repair-order rules. |
+| [`Fault Spawning`](src/core/missions/manager/compositeFaultSpawner.js) | Coordinates standard and cascading fault spawning, allowing gameplay rules to introduce new faults as consequences of player actions. |
+
+### SQL & Repair Evaluation
+
+This is one of the core technical areas of StarQuery: player SQL is executed against the in-browser database, then the resulting state is analysed to determine whether the player's actions constitute valid repairs.
+
+| Component | Description |
+|---|---|
+| [`QueryEngine`](src/core/missions/manager/query/queryEngine.js) | Controls the SQL execution pipeline, validates commands and stage restrictions, captures pre-query state and passes mutations to the repair reconciliation system. |
+| [`QueryExecutor`](src/core/missions/manager/query/queryExecutor.js) / [`SelectHandler`](src/core/missions/manager/query/selectHandler.js) | Handle SQL execution and `SELECT` query processing, including result handling, query restrictions and information used by the identification and efficiency systems. |
+| **[`RepairReconciler`](src/core/missions/manager/query/repairReconciler.js)** | Evaluates player repairs by comparing database state before and after SQL mutations. It identifies faulty-to-valid transitions, tracks incorrect modifications and repair efficiency, and coordinates consequences such as critical repair-order violations and cascading faults. |
+
+### Procedural Mission Generation
+
+| Component | Description |
+|---|---|
+| [`MissionGenerator`](src/core/missions/generator/missionGenerator.js) | Coordinates procedural mission generation by combining difficulty scaling, randomisation, row population and mission building. |
+| [`MissionBuilder`](src/core/missions/generator/missionBuilder.js) | Constructs mission modules and assembles generated rows, faults, schemas and stage configuration into complete missions. |
+| [`RowPopulator`](src/core/missions/generator/rowPopulator.js) | Generates valid module rows and injects rule-consistent faults whose values and ambiguity scale with difficulty. |
+
+### Database
+
+| Component | Description |
+|---|---|
+| [`SQL.js Database Layer`](src/api/sql.js) | Initialises the in-browser SQLite database, creates mission tables, loads mission data and provides the underlying query execution used by the game. |
+
+
 <br>
 
 ## Technical Deep Dive
