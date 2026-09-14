@@ -30,6 +30,9 @@ StarQuery is an educational browser-based game that teaches SQL through spaceshi
 - **Gameplay:** Identify → Repair → Logging
 - **Missions:** Procedurally generated with configurable difficulty and gameplay rules
 
+> **Interested in the implementation?**  
+> The [Key Components](#key-components) section provides direct links to the main source files, grouped by technical area, so you can quickly explore the parts of the codebase most relevant to you.
+
 <br>
 
 ## Overview
@@ -82,7 +85,7 @@ A central `Rulebook` acts as the source of truth for the game's modules, valid o
 
 ### State-based SQL evaluation
 
-Rather than requiring players to produce one predetermined SQL query, StarQuery evaluates the effect of their commands. The system captures the database state before a mutation, executes the player's SQL, then compares the resulting state against the previous state. The `Repair Reconciler` uses these changes together with the `Rulebook` to determine which faults were repaired, which fields were incorrectly modified and what gameplay consequences should occur.
+Rather than requiring players to produce one predetermined SQL query, StarQuery evaluates the effect of their commands. The system captures the database state before a mutation, executes the player's SQL, then compares the resulting state against the previous state. The `RepairReconciler` uses these changes together with the `Rulebook` to determine which faults were repaired, which fields were incorrectly modified and what gameplay consequences should occur.
 
 ### Procedural mission generation
 
@@ -96,6 +99,9 @@ Repairs can have consequences beyond simply changing a value. Dependency relatio
 
 SQL.js/WebAssembly provides an in-browser SQLite database, allowing player queries to execute immediately without requiring a backend database or server-side query processing.
 
+> **Want to see how these systems are implemented?**  
+> The [Technical Deep Dive](#technical-deep-dive) section explains the underlying implementation of the Rulebook, state-based repair evaluation, procedural mission generation, fault dependencies and progression systems.
+
 <br>
 
 ## Architecture
@@ -106,9 +112,9 @@ The diagram below illustrates the relationships between the major components of 
 
 ![StarQuery Architecture](docs/images/architecture.png)
 
-The `Game Manager` acts as the main application controller, coordinating initialisation and the creation of the major game components. The mission and campaign systems are separated into dedicated components for generating, building and loading missions, while the `Rulebook` provides shared definitions for the ship's modules, valid operating ranges and gameplay rules.
+The `GameManager` acts as the main application controller, coordinating initialisation and the creation of the major game components. The mission and campaign systems are separated into dedicated components for generating, building and loading missions, while the `Rulebook` provides shared definitions for the ship's modules, valid operating ranges and gameplay rules.
 
-The query system is separated from the rest of the game logic. Player SQL is processed through the `Query Engine` and `Query Executor`, which execute queries against the in-browser `sql.js` database. Database state is then compared before and after player actions, allowing the `Repair Reconciler` to determine which faults were repaired and whether any additional gameplay rules have been triggered.
+The query system is separated from the rest of the game logic. Player SQL is processed through the `QueryEngine` and `QueryExecutor`, which execute queries against the in-browser `sql.js` database. Database state is then compared before and after player actions, allowing the `RepairReconciler` to determine which faults were repaired and whether any additional gameplay rules have been triggered.
 
 This separation of responsibilities keeps the user interface, mission system, game rules and database operations as distinct components while allowing them to communicate where required.
 
@@ -178,9 +184,9 @@ This approach keeps the behaviour of different parts of the application consiste
 
 A key part of StarQuery is that players are not required to use one specific SQL query to repair a fault. Instead, the game evaluates the changes made to the database state.
 
-When a player executes a query that can modify the database, the `Query Engine` first captures the current state of the relevant tables. The `Query Executor` then executes the player's SQL against the in-browser database. After execution, the resulting state is compared with the captured state to determine what the player actually changed.
+When a player executes a query that can modify the database, the `QueryEngine` first captures the current state of the relevant tables. The `QueryExecutor` then executes the player's SQL against the in-browser database. After execution, the resulting state is compared with the captured state to determine what the player actually changed.
 
-The `Repair Reconciler` processes these changes alongside the rules defined by the `Rulebook`. It identifies transitions from faulty to valid values as repairs, while also detecting invalid changes, modifications to non-faulty fields and changes that trigger additional gameplay rules.
+The `RepairReconciler` processes these changes alongside the rules defined by the `Rulebook`. It identifies transitions from faulty to valid values as repairs, while also detecting invalid changes, modifications to non-faulty fields and changes that trigger additional gameplay rules.
 
 This approach separates SQL execution from game-state evaluation. The database is responsible for applying the player's query, while the surrounding game systems interpret the resulting state and determine whether the player's actions constitute valid repairs.
 
@@ -188,9 +194,9 @@ This also allows players to solve a problem using different valid SQL approaches
 
 ### Procedural Mission Generation
 
-StarQuery can generate missions dynamically rather than relying entirely on a collection of predefined scenarios. The `Mission Generator` coordinates the creation of the components required to construct a mission, including the `Rulebook`, `Row Populator` and `Mission Builder`.
+StarQuery can generate missions dynamically rather than relying entirely on a collection of predefined scenarios. The `MissionGenerator` coordinates the creation of the components required to construct a mission, including the `Rulebook`, `RowPopulator` and `MissionBuilder`.
 
-The `Row Populator` uses the rules defined by the `Rulebook` to generate valid module data and introduce appropriate faults. The `Mission Builder` then assembles these generated components into a complete mission, with the difficulty configuration controlling factors such as fault density, the maximum number of faults and ambiguity in the generated data.
+The `RowPopulator` uses the rules defined by the `Rulebook` to generate valid module data and introduce appropriate faults. The `MissionBuilder` then assembles these generated components into a complete mission, with the difficulty configuration controlling factors such as fault density, the maximum number of faults and ambiguity in the generated data.
 
 This allows missions to vary while remaining consistent with the rules of the game. It also means that increasing difficulty can change the complexity of generated missions without requiring each variation to be manually designed and stored.
 
@@ -200,7 +206,7 @@ StarQuery supports gameplay rules that create dependencies between faults and re
 
 One example is `Critical Repair Order`, where certain faults must be repaired before others. If a player repairs a lower-priority fault while a more critical fault remains unresolved, the game can respond by introducing an additional fault.
 
-`Cascading Faults` provide another form of dependency, allowing changes to one part of the ship to cause faults elsewhere when the relevant conditions are met. The `Fault Spawner` and `Repair Reconciler` work with the `Rulebook` to determine when these consequences should occur.
+`Cascading Faults` provide another form of dependency, allowing changes to one part of the ship to cause faults elsewhere when the relevant conditions are met. The `FaultSpawner` and `RepairReconciler` work with the `Rulebook` to determine when these consequences should occur.
 
 These systems allow the database state to drive changes in the game rather than treating each fault as an isolated problem. As a result, players must consider both the immediate effect of a repair and its potential consequences for the rest of the ship.
 
@@ -250,7 +256,7 @@ http://localhost:8000/
 
 The project should now load and be playable in the browser.
 
-> **Note:** The game should be run through a local HTTP server rather than opening index.html directly, as the application requires access to the SQL.js WebAssembly files.
+> **Note:** The game should be run through a local HTTP server rather than opening `index.html` directly, as the application requires access to the SQL.js WebAssembly files.
 
 ### Running Tests
 
