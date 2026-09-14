@@ -133,17 +133,19 @@ The repository contains a number of systems that demonstrate the main technical 
 |---|---|
 | [`Rulebook System`](src/core/rules/) | Central rules system containing the `Rulebook`, module definitions, valid operating ranges, commands and dependencies used throughout the game. |
 | [`HintsManager`](src/core/missions/manager/hintsManager.js) | Generates contextual hints from the live mission state, adapting suggestions to the current stage, repair priority, dependencies and critical repair-order rules. |
-| [`Fault Spawning`](src/core/missions/manager/compositeFaultSpawner.js) | Coordinates standard and cascading fault spawning, allowing gameplay rules to introduce new faults as consequences of player actions. |
+| [`FaultSpawner`](src/core/missions/manager/faultSpawner.js) / [`CompositeFaultSpawner`](src/core/missions/manager/compositeFaultSpawner.js) | `FaultSpawner` selects eligible rows and fields, generates out-of-range values and persists newly spawned faults. `CompositeFaultSpawner` provides a unified interface for coordinating standard and cascading fault spawning. |
 
 ### SQL & Repair Evaluation
 
 This is one of the core technical areas of StarQuery: player SQL is executed against the in-browser database, then the resulting state is analysed to determine whether the player's actions constitute valid repairs.
 
+> **⭐ Recommended starting point:** [`RepairReconciler`](src/core/missions/manager/query/repairReconciler.js) is one of the most technically significant components in the project. It compares database state before and after player actions, evaluates repairs against the game rules, tracks repair efficiency and coordinates consequences such as cascading faults.
+
 | Component | Description |
 |---|---|
 | [`QueryEngine`](src/core/missions/manager/query/queryEngine.js) | Controls the SQL execution pipeline, validates commands and stage restrictions, captures pre-query state and passes mutations to the repair reconciliation system. |
 | [`QueryExecutor`](src/core/missions/manager/query/queryExecutor.js) / [`SelectHandler`](src/core/missions/manager/query/selectHandler.js) | Handle SQL execution and `SELECT` query processing, including result handling, query restrictions and information used by the identification and efficiency systems. |
-| **[`RepairReconciler`](src/core/missions/manager/query/repairReconciler.js)** | Evaluates player repairs by comparing database state before and after SQL mutations. It identifies faulty-to-valid transitions, tracks incorrect modifications and repair efficiency, and coordinates consequences such as critical repair-order violations and cascading faults. |
+| [`RepairReconciler`](src/core/missions/manager/query/repairReconciler.js) | Evaluates player repairs by comparing database state before and after SQL mutations. It identifies faulty-to-valid transitions, tracks incorrect modifications and repair efficiency, and coordinates consequences such as critical repair-order violations and cascading faults. |
 
 ### Procedural Mission Generation
 
