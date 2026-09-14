@@ -157,7 +157,7 @@ This is one of the core technical areas of StarQuery: player SQL is executed aga
 
 | Component | Description |
 |---|---|
-| [`SQL.js Database Layer`](src/api/sql.js) | Initialises the in-browser SQLite database, creates mission tables, loads mission data and provides the underlying query execution used by the game. |
+| [`SQL.js Database Layer`](src/core/api/sql.js) | Initialises the in-browser SQLite database, creates mission tables, loads mission data and provides the underlying query execution used by the game. |
 
 
 <br>
