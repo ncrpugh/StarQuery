@@ -9,6 +9,7 @@ StarQuery is an educational browser-based game that teaches SQL through spaceshi
 ## Contents
 
 - [At a Glance](#at-a-glance)
+- [Purpose and Outcomes](#purpose-and-outcomes)
 - [Overview](#overview)
 - [How It Works](#how-it-works)
 - [Technical Highlights](#technical-highlights)
@@ -34,6 +35,19 @@ StarQuery is an educational browser-based game that teaches SQL through spaceshi
 > The [Key Components](#key-components) section provides direct links to the main source files, grouped by technical area, so you can quickly explore the parts of the codebase most relevant to you.
 
 <br>
+
+## Purpose and Outcomes
+
+Learning SQL can feel abstract when practice focuses on writing queries against datasets without much context or purpose. StarQuery was developed to make practising SQL more engaging by placing it within an interactive problem-solving environment, giving learners practical objectives to work towards.
+
+Players take the role of a spaceship crew member responsible for maintaining the ship's systems. They use SQL to investigate faulty data, identify problems, carry out repairs and record the impact of their actions. This gives database concepts a practical context, encouraging players to apply their knowledge rather than simply practise SQL syntax in isolation.
+
+To support this approach, the game uses an in-browser SQLite database powered by SQL.js, procedurally generated missions and a state-based evaluation system. Rather than checking queries against predetermined answers, the game evaluates the resulting database changes, allowing different valid SQL approaches to solve the same problem.
+
+**Evaluation:** StarQuery was tested with 11 participants. Average self-reported confidence in using SQL increased from 2.64 to 6.45 out of 10 following gameplay. Correct responses across the assessed SQL questions increased from 18–36% before gameplay to 64–100% afterwards.
+
+<br>
+
 
 ## Overview
 
