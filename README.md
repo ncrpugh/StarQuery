@@ -2,7 +2,7 @@
 
 StarQuery is an educational browser-based game that teaches SQL through spaceship maintenance and problem solving. Players use SQL queries to identify faults, repair ship systems, and record the impact of their repairs.
 
-[Play StarQuery](https://devweb2025.cis.strath.ac.uk/~yfb21159/CS408Project/)
+[Play StarQuery](https://ncrpugh.github.io/StarQuery/)
 
 <br>
 
